@@ -3,6 +3,7 @@ from langchain_community.document_transformers import Html2TextTransformer
 import openai
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
+import json
 
 # Custom class to manage summaries
 class SummaryManager:
@@ -17,6 +18,11 @@ class SummaryManager:
     def get_summaries(self):
         # Return all stored summaries
         return self.summaries
+    
+    def save_to_json(self, filename):
+        # Save summaries to a JSON file
+        with open(filename, 'w') as f:
+            json.dump([{"summary": doc.page_content} for doc in self.summaries], f)
 
 # Your existing code
 url = "https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen"
